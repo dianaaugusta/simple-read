@@ -45,7 +45,7 @@ class DisclaimerPage extends StatelessWidget {
                     "para fins pessoais",
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                      fontSize: SimplereadSizes.sizeXXS,
+                      fontSize: SimplereadSizes.sizeMD,
                       color: SimplereadColors.fontStrongGrey,
                     ),
                   ),
