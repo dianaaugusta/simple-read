@@ -15,7 +15,7 @@ class DisclaimerPage extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.1, right: 5.0),
+            top: MediaQuery.of(context).size.height * 0.2, right: 5.0),
         child: Column(children: [
           Row(
             children: const [
@@ -32,19 +32,21 @@ class DisclaimerPage extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: SimplereadSizes.sizeSL),
+            padding: const EdgeInsets.only(top: SimplereadSizes.sizeXXXS),
             child: Row(
               children: const [
                 Expanded(
                   flex: 6,
                   child: Text(
                     "Esse aplicativo foi feito apenas para fins educativos "
-                    "e sem fins lucrativos. Ao acessar o mesmo, você concorda"
+                    "e sem fins lucrativos. "
+                     "\n\nAo acessar o mesmo, você concorda "
                     "que não está usando-o de má fé e irá APENAS o utilizar "
                     "para fins pessoais",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       fontSize: SimplereadSizes.sizeXXS,
+                      color: SimplereadColors.fontStrongGrey,
                     ),
                   ),
                 )

@@ -7,6 +7,7 @@ class SimplereadColors {
   static const Color subtitleColor = Color(0xff85756E);
   static const Color disclaimerColor = Color(0xff6D3D14);
   static const Color frameColor = Color(0xff551B14);
-
+  static const Color neutralGreyBg = Color(0xffCCC8B3);
+  static const Color fontStrongGrey = Color(0xff85756D);
   static const MaterialColor brandPrimaryMat = Colors.grey;
 }
