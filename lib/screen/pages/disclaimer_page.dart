@@ -13,59 +13,60 @@ class DisclaimerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.2, right: 5.0),
-        child: Column(children: [
-          Row(
-            children: const [
-              Expanded(
-                child: Text(
-                  "Disclaimer",
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    color: SimplereadColors.disclaimerColor,
-                    fontSize: SimplereadTypography.sizeXXL,
-                  ),
-                ),
-              ),
-            ],
-          ),
+      body: Stack(
+        children: [
           Padding(
-            padding: const EdgeInsets.only(top: SimplereadSizes.sizeXXXS),
-            child: Row(
-              children: const [
-                Expanded(
-                  flex: 6,
-                  child: Text(
-                    "Esse aplicativo foi feito apenas para fins educativos "
-                    "e sem fins lucrativos. "
-                     "\n\nAo acessar o mesmo, você concorda "
-                    "que não está usando-o de má fé e irá APENAS o utilizar "
-                    "para fins pessoais",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontSize: SimplereadSizes.sizeMD,
-                      color: SimplereadColors.fontStrongGrey,
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.2, right: 5.0),
+            child: ListView(
+              children: [
+                Row(
+                  children: const [
+                    Expanded(
+                      child: Text(
+                        "Disclaimer",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          color: SimplereadColors.disclaimerColor,
+                          fontSize: SimplereadTypography.sizeXXL,
+                        ),
+                      ),
                     ),
+                  ],
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(top: SimplereadSizes.sizeXXXS),
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        flex: 6,
+                        child: Text(
+                          "Esse aplicativo foi feito apenas para fins educativos "
+                          "e sem fins lucrativos. "
+                          "\n\nAo acessar o mesmo, você concorda "
+                          "que não está usando-o de má fé e irá APENAS o utilizar "
+                          "para fins pessoais",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontSize: SimplereadSizes.sizeXXS,
+                            color: SimplereadColors.fontStrongGrey,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Stack(
-              alignment: Alignment.bottomLeft,
-              children: <Widget>[
-                Positioned(
-                  child: Redbutton(),
-                  bottom: 0.0,
-                  left: -5.0,
                 ),
               ],
             ),
-          )
-        ]),
+          ),
+           Positioned.fromRelativeRect(
+            rect: RelativeRect.fromLTRB(-101, 300, 150, -20),
+            child: Redbutton(
+              pageName: 'main',
+            ),
+          ),
+        ],
       ),
     );
   }
