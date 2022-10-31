@@ -31,7 +31,7 @@ class NewsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = this.status;
     data['totalResults'] = this.totalResults;
     if (this.articles != null) {

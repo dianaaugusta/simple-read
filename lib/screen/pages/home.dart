@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_read_v2/bloc/news_bloc.dart';
 import 'package:simple_read_v2/config/news_model.dart';
+import 'package:simple_read_v2/screen/molecules/tab_bar.dart';
 
 class HomePage extends StatefulWidget {
   // NewsBloc
@@ -10,22 +11,34 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() {
+    return _HomePageState();
+  }
 }
 
 class _HomePageState extends State<HomePage> {
-  final NewsBloc _newsBloc = NewsBloc();
+  String _country = "us";
+  late NewsBloc _newsBloc = NewsBloc(_country);
 
   @override
   void initState() {
     _newsBloc.add(LoadNewsEvents());
+    _newsBloc.country = _country;
     super.initState();
+  }
+
+  void changeToDeutschNews(){
+    setState(() {
+      _country.replaceAll("us", "de");
+      _newsBloc.country = _country;
+      initState();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Teste noticias"),),
+      appBar: AppBar(),
       body: _buildTopNewsList(),
     );
   }
@@ -40,7 +53,7 @@ class _HomePageState extends State<HomePage> {
               if (state is NewsErrorState){
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                        content: Text(state.exception!),
+                        content: Text(state.exception),
                     )
                 );
               }
@@ -65,20 +78,28 @@ class _HomePageState extends State<HomePage> {
     return ListView.builder(
         itemCount: model.articles!.length,
         itemBuilder: (context, index){
-          return Container(
-            margin: EdgeInsets.all(10.0),
-            child: Card(
-              child: Container(
+          return Column(
+            children: [
+              FloatingActionButton(onPressed: (){
+                changeToDeutschNews();
+              }),
+              Container(
                 margin: EdgeInsets.all(10.0),
-                child: Column(
-                  children: <Widget>[
-                    Text("Autor: ${model.articles![index].author}"),
-                    Text("Titulo : ${model.articles![index].title}"),
-                    Text("Fonte : ${model.articles![index].url}")
-                  ],
+                child: Card(
+                  child: Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: Column(
+                      children: <Widget>[
+                        Image.network("${model.articles![index].urlToImage}"),
+                        Text("Autor: ${model.articles![index].author}"),
+                        Text("Titulo : ${model.articles![index].title}"),
+                        Text("Fonte : ${model.articles![index].url}")
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           );
         }
     );

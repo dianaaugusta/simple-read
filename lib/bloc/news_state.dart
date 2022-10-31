@@ -1,5 +1,5 @@
-
 part of 'news_bloc.dart';
+
 abstract class NewsState extends Equatable {}
 
 class NewsLoadingState extends NewsState{

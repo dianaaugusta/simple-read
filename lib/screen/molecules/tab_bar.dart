@@ -8,44 +8,46 @@ class SimplereadTabbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 1,
-      length: 3,
-      child: TabBarView(
-        children: [
-          Stack(
+    return AppBar(
+      title: DefaultTabController(
+        initialIndex: 1,
+        length: 3,
+        child: TabBarView(
           children: [
-          CustomPaint(
-            size: Size(MediaQuery.of(context).size.width,
-                (MediaQuery.of(context).size.width * 0.625).toDouble()),
-            painter: RPSCustomPainter(),
-          ),
-            Padding(
-              padding: const EdgeInsets.only(top: 18.0),
-              child: Row(
-                children: [
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.2),
-                  Icon(
-                    size: SimplereadSizes.sizeXS,
-                      IconData(
-                        0xe3dc,
-                          fontFamily: 'MaterialIcons',
-                      )
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.4),
-                  Icon(
-                    size: SimplereadSizes.sizeXS,
-                      IconData(
-                        0xf036c,
-                        fontFamily: 'MaterialIcons',
-                      )
-                  ),
-
-                ],
-              ),
+            Stack(
+            children: [
+            CustomPaint(
+              size: Size(MediaQuery.of(context).size.width,
+                  (MediaQuery.of(context).size.width * 0.625).toDouble()),
+              painter: RPSCustomPainter(),
             ),
-          ],
-        )],
+              Padding(
+                padding: const EdgeInsets.only(top: 18.0),
+                child: Row(
+                  children: [
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.2),
+                    Icon(
+                      size: SimplereadSizes.sizeXS,
+                        IconData(
+                          0xe3dc,
+                            fontFamily: 'MaterialIcons',
+                        )
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.4),
+                    Icon(
+                      size: SimplereadSizes.sizeXS,
+                        IconData(
+                          0xf036c,
+                          fontFamily: 'MaterialIcons',
+                        )
+                    ),
+
+                  ],
+                ),
+              ),
+            ],
+          )],
+        ),
       ),
     );
   }

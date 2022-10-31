@@ -3,11 +3,11 @@ import 'package:simple_read_v2/config/news_model.dart';
 
 class ApiProvider {
   final Dio _dio = Dio();
-  final String _url = 'https://newsapi.org/v2/top-headlines?country=br&apiKey=756198cce06a48deaf62957efd081d2e';
 
-  Future<NewsModel> fetchNews() async {
+  Future<NewsModel> fetchNews(String country) async {
     try {
-      Response response = await _dio.get(_url);
+      String url = 'https://newsapi.org/v2/top-headlines?country=$country&apiKey=756198cce06a48deaf62957efd081d2e';
+      Response response = await _dio.get(url);
       return NewsModel.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");

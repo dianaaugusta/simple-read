@@ -5,8 +5,8 @@ import 'news_model.dart';
 class ApiRepository {
   final _provider = ApiProvider();
 
-  Future<NewsModel>fetchNewsList(){
-    return _provider.fetchNews();
+  Future<NewsModel>fetchNewsList(String country){
+    return _provider.fetchNews(country);
   }
 
 }
