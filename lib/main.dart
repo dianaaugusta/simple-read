@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: SimplereadTheme,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
       getPages: [
-        GetPage(name: '/main', page: () => HomePage()),
+        GetPage(name: '/main', page: () => const HomePage()),
       ],
     );
   }

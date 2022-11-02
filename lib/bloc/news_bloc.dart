@@ -8,13 +8,37 @@ part 'news_events.dart';
 part 'news_state.dart';
 
 class NewsBloc extends Bloc<NewsEvents, NewsState>{
-  String country;
+   String country;
 
-  NewsBloc(this.country) : super(NewsLoadingState()){
-    callNews();
+  NewsBloc( this.country) : super(NewsLoadingState()){
+    callNews(country);
   }
 
-  Future<void> callNews() async{
+  Future<void> callNews(country) async{
+    final ApiRepository _apiRepository = ApiRepository();
+    on<LoadNewsEvents>((event, emit) async{
+      try {
+        emit(NewsLoadingState());
+        final nList = await _apiRepository.fetchNewsList(country);
+        emit(NewsLoadedState(nList));
+        if(nList.error != null){
+          emit(NewsErrorState(nList.error!));
+        }
+      } on NetworkError{
+        emit(NewsErrorState("Falha em pegar as noticias. Confira conexao"));
+      }
+    });
+  }
+}
+
+class UpdateNewsBloc extends Bloc<NewsEvents, NewsState>{
+  String country;
+
+  UpdateNewsBloc(this.country) : super(NewsLoadingState()){
+    updateNews(country);
+  }
+
+  Future<void> updateNews(country) async{
     final ApiRepository _apiRepository = ApiRepository();
     on<LoadNewsEvents>((event, emit) async{
       try {
