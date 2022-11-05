@@ -18,16 +18,6 @@ class ApiProvider {
     }
   }
 
-  Future<NewsModel> updateNews(country) async {
-    try {
-      url += "$country&apiKey=756198cce06a48deaf62957efd081d2e";
-      Response response = await _dio.put(url);
-      return NewsModel.fromJson(response.data);
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return NewsModel.withError("Data not found / Connection issue");
-    }
-  }
 
 
 

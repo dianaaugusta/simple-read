@@ -9,6 +9,7 @@ class ApiRepository {
     return _provider.fetchNews(country);
   }
 
+
 }
 
 class NetworkError extends Error{}

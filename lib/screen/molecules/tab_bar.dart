@@ -26,7 +26,7 @@ class SimplereadTabbar extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(width: MediaQuery.of(context).size.width * 0.2),
-                    Icon(
+                    const Icon(
                       size: SimplereadSizes.sizeXS,
                         IconData(
                           0xe3dc,
@@ -34,7 +34,7 @@ class SimplereadTabbar extends StatelessWidget {
                         )
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.4),
-                    Icon(
+                    const Icon(
                       size: SimplereadSizes.sizeXS,
                         IconData(
                           0xf036c,

@@ -5,18 +5,20 @@ import 'package:simple_read_v2/bloc/news_bloc.dart';
 import 'package:simple_read_v2/config/news_model.dart';
 import 'package:simple_read_v2/screen/molecules/tab_bar.dart';
 
+import '../../bloc/news_observer.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() {
+    Bloc.observer = NewsObserver();
     return _HomePageState();
   }
 }
 
 class _HomePageState extends State<HomePage> {
   late NewsBloc _newsBloc = NewsBloc(country);
-
   static String country = "br";
 
   @override

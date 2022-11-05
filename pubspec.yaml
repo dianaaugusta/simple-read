@@ -44,6 +44,7 @@ dependencies:
   equatable: ^2.0.5
   dio: ^4.0.6
   rxdart: ^0.27.5
+  bloc_concurrency: ^0.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
