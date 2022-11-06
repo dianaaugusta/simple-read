@@ -112,7 +112,7 @@ class BuildIndividualCard extends StatelessWidget {
                       Image.network(
                         "${model.articles?[index].urlToImage}",
                         errorBuilder: (context, error, stackTrace) {
-                          return Image.asset('/atoms/error404.jpg');
+                          return Image.asset('simpleread_design_system/lib/atoms/error404.jpg');
                         },
                       ),
                       Text("Autor: ${model.articles?[index].author}"),
