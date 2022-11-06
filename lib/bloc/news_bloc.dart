@@ -18,7 +18,6 @@ class NewsBloc extends Bloc<NewsEvents, NewsState>{
     final ApiRepository _apiRepository = ApiRepository();
     on<LoadNewsEvents>((event, emit) async{
       try {
-        emit(NewsLoadingState());
         final nList = await _apiRepository.fetchNewsList(country);
         emit(NewsLoadedState(nList));
         if(nList.error != null){

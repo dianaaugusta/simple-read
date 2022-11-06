@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_read_v2/bloc/news_bloc.dart';
 import 'package:simple_read_v2/config/news_model.dart';
 import 'package:simple_read_v2/screen/molecules/tab_bar.dart';
-
 import '../../bloc/news_observer.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,46 +22,45 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    super.initState();
     _newsBloc.add(LoadNewsEvents());
+    super.initState();
   }
 
-  Future changeToDeutschNews() async {
-    // ignore: avoid_print
-    print("called");
-    setState(() {
-      _newsBloc.close();
-      country = "de";
-      _newsBloc = NewsBloc(country);
-      _newsBloc.add(LoadNewsEvents());
-    });
+  Future<void> changeToDeutschNews() async {
+    country = "de";
+    _newsBloc.emit(NewsLoadingState());
+    _newsBloc.callNews(country);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: <Widget>[
-          FloatingActionButton.small(onPressed: () async {
-            await changeToDeutschNews();
-          }),
-          Expanded(
-            child: SizedBox(
-              height: 200.0,
-              child: _buildTopNewsList(country),
-            ),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            FloatingActionButton.small(onPressed: () async {
+              await changeToDeutschNews();
+            }),
+            BuildTopNewsList(bloc: _newsBloc),
+          ],
+        ),
       ),
     );
   }
+}
 
-  Widget _buildTopNewsList(country) {
+class BuildTopNewsList extends StatelessWidget {
+  final NewsBloc bloc;
+
+  const BuildTopNewsList({super.key, required this.bloc});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10.0),
       child: BlocProvider(
-        create: (_) => _newsBloc,
+        create: (_) => bloc,
         child: BlocListener<NewsBloc, NewsState>(
           listener: (context, state) {
             if (state is NewsErrorState) {
@@ -76,7 +74,7 @@ class _HomePageState extends State<HomePage> {
               if (state is NewsLoadingState) {
                 return CircularProgressIndicator();
               } else if (state is NewsLoadedState) {
-                return _buildIndividualCard(context, state.news);
+                return BuildIndividualCard(model: state.news);
               }
               return Text("404");
             },
@@ -85,33 +83,48 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
 
-  Widget _buildIndividualCard(BuildContext context, NewsModel model) {
-    return
-        //FloatingActionButton(onPressed: changeToDeutschNews()),
-        ListView.builder(
-            itemCount: model.articles!.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(10.0),
-                    child: Card(
-                      child: Container(
-                        margin: EdgeInsets.all(10.0),
-                        child: Column(
-                          children: <Widget>[
-                            Image.network(
-                                "${model.articles![index].urlToImage}"),
-                            Text("Autor: ${model.articles![index].author}"),
-                            Text("Teste: ${model.articles![index].title}")
-                          ],
-                        ),
+class BuildIndividualCard extends StatelessWidget {
+  final NewsModel model;
+
+  const BuildIndividualCard({
+    super.key,
+    required this.model,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: model.articles!.length,
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(10.0),
+              child: Card(
+                child: Container(
+                  margin: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: <Widget>[
+                      Image.network(
+                        "${model.articles?[index].urlToImage}",
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset('/atoms/error404.jpg');
+                        },
                       ),
-                    ),
+                      Text("Autor: ${model.articles?[index].author}"),
+                      Text("Titulo: ${model.articles?[index].title}")
+                    ],
                   ),
-                ],
-              );
-            });
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

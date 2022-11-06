@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:simple_read_v2/bloc/news_bloc.dart';
 
 /// {@template counter_observer}
 /// [BlocObserver] for the counter application which

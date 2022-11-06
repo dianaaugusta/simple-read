@@ -8,3 +8,8 @@ class LoadNewsEvents extends NewsEvents{
   @override
   List<Object> get props => [];
 }
+
+class UpdateNewsEvents extends NewsEvents{
+  @override
+  List<Object> get props => [];
+}
